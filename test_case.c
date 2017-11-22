@@ -108,22 +108,27 @@ TEST(display_item,add_to_list)
     i=add_to_list(&head,str4);
     i=add_to_list(&head,str5);
     i=add_to_list(&head,str6);
-
-    find=head.next;
+//modified to display right object && added two
+	find=&head;
     display_item(find);
 
     find=head.next;
     display_item(find);
 
-    find=head.next;
+    find=head.next->next;
     display_item(find);
 
-    find=head.next;
+    find=head.next->next->next;
     display_item(find);
 
-    find=head.next;
+    find=head.next->next->next->next;
     display_item(find);
 
+    find=head.next->next->next->next->next;
+    display_item(find);
+
+	find=head.next->next->next->next->next->next;
+    display_item(find);
 
 }
 
@@ -179,6 +184,10 @@ TEST(delete,normal)
     i=add_to_list(&head,str6);
 	EXPECT_EQ(i,6);
 
+	//added root delete case
+	i = delete_from_list(&head,0);
+	EXPECT_EQ(i,-1);
+	
     i=delete_from_list(&head,2);
 	EXPECT_EQ(i,5);
 
@@ -189,6 +198,7 @@ TEST(delete,normal)
 	EXPECT_EQ(i,3);
 
     i=delete_from_list(&head,1);
+
 	EXPECT_EQ(i,2);
 
 }
@@ -219,20 +229,24 @@ TEST(delete,multi) {
     for(i=0; i<40; i++)
         add_to_list(&head,str1);
 
+	//corrected function return
+	
+    i = delete_from_list(&head,12);
 
-    i=delete_from_list(&head,12);
     EXPECT_EQ(i,45);
-    delete_from_list(&head,22);
+    i = delete_from_list(&head,22);
     EXPECT_EQ(i,44);
-    delete_from_list(&head,25);
+    i = delete_from_list(&head,25);
+
     EXPECT_EQ(i,43);
-    delete_from_list(&head,32);
+    i = delete_from_list(&head,32);
     EXPECT_EQ(i,42);
-    delete_from_list(&head,38);
+    i = delete_from_list(&head,38);
     EXPECT_EQ(i,41);
 
-    delete_from_list(&head,380);
+    i = delete_from_list(&head,380);
     EXPECT_EQ(i,-1);
+
 
 }
 
@@ -257,7 +271,13 @@ TEST(empty,normal) {
     i=add_to_list(&head,str4);
     i=add_to_list(&head,str5);
     i=add_to_list(&head,str6);
-    empty_list(&head);
+    i = empty_list(&head);
+	//added testcase for check the list is empty
+	
+	EXPECT_EQ(i,1);
+	i = linkedlist_status(&head);
+	EXPECT_EQ(i,1);	
+	
 	
 }
 
